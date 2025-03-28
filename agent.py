@@ -52,10 +52,26 @@ def send_all_payslips(_input=None):
 def conversation_agent(query):
     return llm.invoke(query)
 
-# === Tool 4: Generate Invoice ===
+# === Tool 4: Data Analysis ===
 def data_analysis_tool(_input):
     data = pd.read_csv("data/Employee_Salary_Dataset.csv")
-    return pandas_agent.run(_input)
+    query = _input.lower()
+
+    if "average salary" in query:
+        avg_salary = data['Salary'].mean()
+        return f"The average salary in the dataset is ${avg_salary:,.2f}."
+    
+    elif "highest salary" in query:
+        max_salary = data['Salary'].max()
+        return f"The highest salary in the dataset is ${max_salary:,.2f}."
+    
+    elif "lowest salary" in query:
+        min_salary = data['Salary'].min()
+        return f"The lowest salary in the dataset is ${min_salary:,.2f}."
+    
+    else:
+        return "❗️I can only answer questions about average, highest, or lowest salary."
+
 
 
 # === Define Tools ===
