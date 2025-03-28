@@ -55,12 +55,6 @@ def conversation_agent(query):
 # === Tool 4: Generate Invoice ===
 def data_analysis_tool(_input):
     data = pd.read_csv("data/Employee_Salary_Dataset.csv")
-    pandas_agent = create_pandas_dataframe_agent(
-        llm,
-        data,
-        verbose=True,
-        allow_dangerous_code=True
-    )
     return pandas_agent.run(_input)
 
 
